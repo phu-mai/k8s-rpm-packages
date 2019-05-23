@@ -1,0 +1,39 @@
+---
+# tasks file for kubernetes
+- name: Create kubernetes drop-in directory
+  file: path=/tmp/packages state=directory
+
+- name: kubernetes packages drop-in
+  copy:
+    src: "files/{{ item }}"
+    dest: /tmp/packages/
+  with_items: "{{ packages }}"
+
+- name: Install conntrack-tools
+  yum:
+    name: conntrack-tools
+    state: present
+
+- name: Install socat
+  yum:
+    name: socat
+    state: present
+
+- name: Install kubernetes packages
+  yum:
+    name: "/tmp/packages/{{ item }}"
+    state:  present
+  with_items: "{{ packages }}"
+
+- name: Drop-in kubernetes configurations
+  template: 
+    src: templates/config/{{ item }} 
+    dest: /etc/kubernetes/
+  with_items: "{{ config_files }}"
+
+- name: Override kubernetes service
+  template: 
+    src: templates/service/{{ item }} 
+    dest: /usr/lib/systemd/system 
+    mode: 644
+  with_items: "{{ k8s_services }}"

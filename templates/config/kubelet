@@ -1,0 +1,9 @@
+###
+# kubernetes kubelet (minion) config
+
+# The address for the info server to serve on (set to 0.0.0.0 or "" for all interfaces)
+KUBELET_ADDRESS="--address=0.0.0.0"
+
+# Add your own!
+#KUBELET_ARGS=" --cluster-dns={{ ansible_default_ipv4.address }},{{ k8s_dns_ip }} --cluster-domain=k8s.local --kubeconfig=/etc/kubernetes/kubeconfig --eviction-hard=memory.available<500Mi --system-reserved=cpu=500m,memory=1Gi {{ kubelet_extra_configs }}"
+KUBELET_ARGS=" --cluster-domain=k8s.local --cluster-domain=k8s.local --kubeconfig=/etc/kubernetes/kubeconfig {{ kubelet_extra_configs }}"

@@ -1,0 +1,1 @@
+KUBE_PROXY_ARGS="--healthz-bind-address=0.0.0.0"

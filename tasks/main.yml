@@ -1,0 +1,5 @@
+---
+- name: Setup kubernetes packages
+  import_tasks: kubernetes-setup.yml
+  tags:
+    - full-install

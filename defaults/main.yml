@@ -1,0 +1,28 @@
+---
+# defaults file for kubernetes
+api_server: 0.0.0.0
+k8s_dns_ip:
+etcd_cluster:
+cluster_service_cidr: 
+kubelet_extra_configs: "--network-plugin=cni --enable-controller-attach-detach=false --feature-gates=ReadOnlyAPIDataVolumes=false"
+version: 1.10.11
+packages:
+  - kubernetes-client-{{ version }}-1.x86_64.rpm
+  - kubernetes-master-{{ version }}-1.x86_64.rpm
+  - kubernetes-node-{{ version }}-1.x86_64.rpm
+
+config_files:
+  - apiserver
+  - controller-manager
+  - scheduler
+  - config
+  - kubelet
+  - proxy
+  - kubeconfig
+
+k8s_services:
+  - kube-apiserver.service
+  - kube-controller-manager.service
+  - kube-scheduler.service
+  - kube-proxy.service
+  - kubelet.service
